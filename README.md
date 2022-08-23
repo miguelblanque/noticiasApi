@@ -4,7 +4,7 @@ Proyecto Buscador de Noticias en React consultando la Api de NewsApi
 Página principal 
 
 
-![alt text](/img/Principal.png)
+![alt text](/src/img/Principal.png)
 
 
 
