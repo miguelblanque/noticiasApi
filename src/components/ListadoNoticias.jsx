@@ -6,10 +6,10 @@ import Noticia from './Noticia'
 
 const ListadoNoticias = () => {
     
-    const {noticias, totalNoticias} = useNoticias()
-  
-    console.log(totalNoticias)
-  
+    const {noticias, totalNoticias, handleChangePagina, pagina } = useNoticias()
+    
+    const totalPaginas = Math.ceil(totalNoticias / 20)
+    
     return (
     <>
         <Typography
@@ -46,7 +46,7 @@ const ListadoNoticias = () => {
             
         >
            
-            <Pagination count ={10} color ="primary"/>
+            <Pagination count ={totalPaginas} color ="primary" onChange={handleChangePagina} page={pagina}/>
             
         </Stack>
     </>

@@ -13,31 +13,64 @@ const NoticiasProvider = ({children}) => {
     const [totalNoticias, setTotalNoticias] = useState(0)
 
 
+    /**
+     * Funcion para actualizar la categoria
+     * @param {*} e 
+     */
     const handleChangeCategoria = e => {
         setCategoria(e.target.value)
     }
 
-    // consultar la api
+    /**
+     * Funcion para actualizar el paginador
+     * @param {*} e 
+     */
+    const handleChangePagina = (e, valor) => {
+        setPagina(valor)
+    }
+
+    /**
+     * useEffect para consultar la api de newsapi cuando se modifique la categoria
+     */
     useEffect(() => {
         const consultarAPI = async () =>{
-            const url=`https://newsapi.org/v2/top-headlines?country=us&category=${categoria}&pageSize=20&apikey=${import.meta.env.VITE_API_KEY}`
+            const url=`https://newsapi.org/v2/top-headlines?country=us&category=${categoria}&apikey=${import.meta.env.VITE_API_KEY}`
 
             
             const {data } = await axios(url)
-            console.log(data)
-            console.log(data.articles)
+            
+            setNoticias(data.articles)
+            setTotalNoticias(data.totalResults)
+            setPagina(1)
+        }
+        consultarAPI()
+    },[categoria])
+
+
+      /**
+     * useEffect para consultar la api de newsapi cuando se modifique la pagina
+     */
+       useEffect(() => {
+        const consultarAPI = async () =>{
+            const url=`https://newsapi.org/v2/top-headlines?country=us&category=${categoria}&pageSize=20&page=${pagina}&apikey=${import.meta.env.VITE_API_KEY}`
+
+            
+            const {data } = await axios(url)
+           
             setNoticias(data.articles)
             setTotalNoticias(data.totalResults)
         }
         consultarAPI()
-    },[categoria])
+    },[pagina])
 
   return (
     <NoticiasContext.Provider value = {{
         categoria,
         handleChangeCategoria,
         noticias,
-        totalNoticias
+        totalNoticias,
+        handleChangePagina,
+        pagina
         
     }}>
         {children}
