@@ -1,4 +1,4 @@
-Proyecto Buscador de Noticias en React consultando la Api de NewsApi
+Proyecto Buscador de Noticias en React con MUI consultando la Api de NewsApi
 
 
 Página principal 
